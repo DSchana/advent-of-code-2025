@@ -46,7 +46,7 @@ fn main() {
         let (new_c, wrapped) = turn_dial(c, d, v);
         c = new_c;
         a += wrapped;
-        println!("{} {} -> {} {}", d, v, c, a);
+        //println!("{} {} -> {} {}", d, v, c, a);
     }
     println!("{}", a);
 }
