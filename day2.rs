@@ -1,4 +1,5 @@
 use std::fs;
+use rayon::prelude::*;
 
 fn is_invalid(n: i64) -> bool {
     let s = n.to_string();
@@ -26,9 +27,10 @@ fn main() {
         .collect();
 
     let total: i64 = ranges
-        .iter()
+        .par_iter()
         .flat_map(|(l, h)| *l..=*h)
         .filter(|&n| is_invalid(n))
         .sum();
     println!("{}", total);
 }
+
