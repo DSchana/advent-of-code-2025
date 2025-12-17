@@ -14,16 +14,24 @@ fn parse(s: &str) -> Option<(char, i32)> {
 }
 
 fn turn_dial(c: i32, d: char, v: i32) -> (i32, i32) {
-    let start = c;
-    let end = if d == 'R' { c + v } else { c - v };
-    let crosses = if d == 'R' {
-        (end / 100) - (start / 100)
-    } else {
-        (start / 100) - (end / 100)
+    let mut passes = v / 100;
+    let angle = v % 100;
+    
+    if c != 0 {
+        passes += match d {
+            'R' if c + angle >= 100 => 1,
+            'L' if c - angle <= 0 => 1,
+            _ => 0,
+        };
+    }
+    
+    let new_c = match d {
+        'R' => (c + angle) % 100,
+        'L' => (c - angle).rem_euclid(100),
+        _ => c,
     };
-    let lands_on_zero = if end % 100 == 0 { 1 } else { 0 };
-
-    (end.rem_euclid(100), crosses + lands_on_zero)
+    
+    (new_c, passes)
 }
 
 fn main() {
