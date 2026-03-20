@@ -15,6 +15,7 @@
                 devShells.default = pkgs.mkShell {
                     buildInputs = with pkgs; [
                         # Rust toolchain
+                        gcc
                         cargo
                         rustc
                         rustfmt
