@@ -1,19 +1,20 @@
 use std::fs;
 
-fn max_joltage(bb: &[u32]) -> u32 {
-    println!("{:?}", bb);
+fn max_joltage(bb: &[u32], n_bat: u32) -> u32 {
+    // TODO: Loop through n battries finding the largest number
+    // from the previous index and keep a sum += m * 10^bat_pos
+
+
     let (m_i, m) = bb[..bb.len() - 1].iter()
         .enumerate()
-        .max_by_key(|(_, &v)| v)
-        .unwrap();
-
+        .fold((0, &bb[0]), |(max_i, max_v), (i, v)| {
+            if v > max_v { (i, v) } else { (max_i, max_v) }
+        });
 
     let l = bb[m_i + 1..].iter()
         .max()
         .unwrap();
 
-
-    println!("{}{}", m, l);
     m * 10 + l
 }
 
@@ -30,7 +31,7 @@ fn main() {
 
     let total: u32 = battery_bank
         .iter()
-        .map(|bb| max_joltage(&bb))
+        .map(|bb| max_joltage(&bb, 12))
         .sum();
     println!("{}", total);
 }
