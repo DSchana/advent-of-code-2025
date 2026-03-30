@@ -22,13 +22,16 @@ fn part1(num_arrays: &Vec<Vec<u64>>, ops: &Vec<&str>) -> u64 {
 }
 
 fn part2(lines: &Vec<String>) -> u64 {
+
+
   lines.iter()
     .enumerate()
     .map(|(i, v)| {
       let p = 1;
       let mut res = 0u64;
       match lines.last()[i] {
-        " " => 
+        " " => lines[..len() - 1].iter()
+                .map(||)
       }
     })
     .sum()
